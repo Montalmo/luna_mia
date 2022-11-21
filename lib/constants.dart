@@ -34,11 +34,21 @@ abstract class AppTextStyle {
       fontSize: 16.0,
       fontWeight: FontWeight.w500,
       color: AppColors.cBlackColor);
+  static const TextStyle h3TitleWhite = TextStyle(
+      fontFamily: AppStrings.appFontFamily,
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500,
+      color: AppColors.cWhiteColor);
   static const TextStyle h4Body = TextStyle(
       fontFamily: AppStrings.appFontFamily,
       fontSize: 16.0,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       color: AppColors.cBlackColor);
+  static const TextStyle h4BodyBlue = TextStyle(
+      fontFamily: AppStrings.appFontFamily,
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500,
+      color: AppColors.cBlueColor);
   static const TextStyle hFlagText = TextStyle(
       fontFamily: AppStrings.appFontFamily,
       fontSize: 18.0,
@@ -55,4 +65,12 @@ abstract class AppTextStyle {
       fontWeight: FontWeight.w400,
       color: AppColors.cDarkGrayColor,
       decoration: TextDecoration.lineThrough);
+  static const TextStyle h5SubTitleText = TextStyle(
+    fontFamily: AppStrings.appFontFamily,
+    fontSize: 14.0,
+    fontWeight: FontWeight.w400,
+    color: AppColors.cDarkGrayColor,
+  );
 }
+
+

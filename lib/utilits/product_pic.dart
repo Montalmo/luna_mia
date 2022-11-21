@@ -52,7 +52,7 @@ class ProductPic extends StatelessWidget {
             ),
             child: Text(
               'Discont',
-              style: AppTextStyle.hFlagText,
+              style: AppTextStyle.h5SubTitleText,
             ),
           ),
         ),
