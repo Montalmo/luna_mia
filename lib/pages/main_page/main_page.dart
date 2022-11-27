@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:luna_mia/constants.dart';
+import 'package:luna_mia/pages/one_product_page/one_product_page.dart';
+import 'package:luna_mia/strings.dart';
 import 'package:luna_mia/utilits/category_card.dart';
 
 class MainPage extends StatelessWidget {
@@ -7,6 +9,18 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void clickRoute(String title, List<Product> productsList) {
+      Navigator.push<void>(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => OneProductPage(
+            title: title,
+            productsList: productsList,
+          ),
+        ),
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -16,16 +30,18 @@ class MainPage extends StatelessWidget {
             child: Column(
               children: [
                 CategoryCard(
+                    onTapVoid: () => clickRoute(productsCategories[0], appProductList),
                     cardColor: AppColors.cYelowColor,
                     imagePath: 'assets/images/category_one_pic.png',
-                    title: 'Girl pajama sets'),
+                    title: productsCategories[0]),
                 SizedBox(
                   height: 40.0,
                 ),
                 CategoryCard(
+                    onTapVoid: () => clickRoute(productsCategories[1], appProductList),
                     cardColor: AppColors.cLightBlueColor,
                     imagePath: 'assets/images/category_two_pic.png',
-                    title: 'Boy pajama sets'),
+                    title: productsCategories[1]),
               ],
             ),
           ),

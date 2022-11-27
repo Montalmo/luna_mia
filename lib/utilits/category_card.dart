@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:luna_mia/constants.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({
-    Key? key,
-    required this.cardColor,
-    required this.imagePath,
-    required this.title,
-  }) : super(key: key);
+  const CategoryCard(
+      {Key? key,
+      required this.cardColor,
+      required this.imagePath,
+      required this.title,
+      required this.onTapVoid})
+      : super(key: key);
 
   final Color cardColor;
   final String imagePath;
   final String title;
+  final VoidCallback onTapVoid;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class CategoryCard extends StatelessWidget {
           color: cardColor,
           borderRadius: BorderRadius.circular(8.0),
           child: InkWell(
-            onTap: (() {}),
+            onTap: () => onTapVoid(),
             customBorder: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
             ),
@@ -29,7 +31,7 @@ class CategoryCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
+                SizedBox(
                   height: 330,
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),

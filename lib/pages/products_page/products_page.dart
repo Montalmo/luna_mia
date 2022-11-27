@@ -3,33 +3,31 @@ import 'package:luna_mia/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:luna_mia/strings.dart';
 import 'package:luna_mia/utilits/age_button.dart';
+import 'package:luna_mia/utilits/product_images.dart';
+import 'package:luna_mia/utilits/square_outline_button.dart';
 
 class OneProductInsidePage extends StatelessWidget {
-  OneProductInsidePage({super.key});
+  OneProductInsidePage({super.key, required this.currentProduct});
 
-  List<String> myAgeCategoryList = [
-    '1-2 Age',
-    '2-3 Age',
-    '4-5 Age',
-    '6-7 Age',
-    '8-9 Age',
-    '10-11 Age',
-    '12-13 Age',
-  ];
+  final Product currentProduct;
+  late final double currentProductDiscountPrice =
+      currentProduct.productCoast - (currentProduct.productCoast * 15 / 100);
+
+  late final CurrentProductInOrder currentProductInOrder;
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppColors.cBlackColor),
         title: Text(
-          'Sweetie Pie',
+          currentProduct.productTitle,
           style: AppTextStyle.h2Title,
+          overflow: TextOverflow.ellipsis,
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: () {},
@@ -39,73 +37,43 @@ class OneProductInsidePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    height: 330,
-                    decoration: BoxDecoration(
-                      color: AppColors.cLighGrayColor,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4.0),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Image.asset('assets/images/category_one_pic.png'),
-                    ),
-                  ),
-                  Positioned(
-                    top: 16.0,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 104,
-                      height: 32.0,
-                      decoration: BoxDecoration(
-                        color: AppColors.cRedColor,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            bottomLeft: Radius.circular(4.0)),
-                      ),
-                      child: Text(
-                        'Discont',
-                        style: AppTextStyle.hFlagText,
-                      ),
-                    ),
-                  ),
-                ],
+              ProductImages(
+                picPathList: currentProduct.productPicPath,
+                isDiscount: currentProduct.isDiscount,
               ),
-              SizedBox(
-                height: 8.0,
-              ),
-              ProductPreviewPics(),
               const SizedBox(
                 height: 24.0,
               ),
               Row(
                 children: [
-                  Text(
-                    '\$ 71.80',
-                    style: AppTextStyle.h2TitlePrice,
-                  ),
+                  currentProduct.isDiscount
+                      ? Text(
+                          '\$ ${currentProductDiscountPrice.toStringAsFixed(2)}',
+                          style: AppTextStyle.h2TitlePrice,
+                        )
+                      : Text(
+                          '\$ ${currentProduct.productCoast}',
+                          style: AppTextStyle.h2TitlePrice,
+                        ),
                   const SizedBox(
                     width: 8.0,
                   ),
-                  Text(
-                    '\$ 118.94',
-                    style: AppTextStyle.h5SubTitle,
-                  ),
+                  if (currentProduct.isDiscount)
+                    Text(
+                      '\$ ${currentProduct.productCoast}',
+                      style: AppTextStyle.h5SubTitle,
+                    ),
                 ],
               ),
               const SizedBox(
                 height: 16.0,
               ),
               Text(
-                'Sweetie Pie Matching Kid And Teddy Bear Set',
+                currentProduct.productTitle,
                 maxLines: 2,
                 style: AppTextStyle.h2Title,
               ),
@@ -120,7 +88,7 @@ class OneProductInsidePage extends StatelessWidget {
                 height: 16.0,
               ),
               AgeButton(
-                ageCategoriesList: myAgeCategoryList,
+                ageCategoriesList: currentProduct.productSizeList,
               ),
               const SizedBox(
                 height: 16.0,
@@ -131,89 +99,13 @@ class OneProductInsidePage extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total coast:',
-                    style: AppTextStyle.h4Body,
-                  ),
-                  Text(
-                    '\$ 142.56',
-                    style: AppTextStyle.h4BodyBlue,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 44.0,
-                          height: 44.0,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(color: AppColors.cGrayColor),
-                          ),
-                          child: Icon(
-                            Icons.remove,
-                            size: 20.0,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 44.0,
-                        height: 44.0,
-                        child: Center(
-                          child: Text(
-                            '1',
-                            style: AppTextStyle.h3Title,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 44.0,
-                        height: 44.0,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: AppColors.cGrayColor),
-                        ),
-                        child: Icon(
-                          Icons.add,
-                          size: 20.0,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8.0,
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 44.0,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.cBlueColor,
-                          elevation: 0,
-                        ),
-                        child: Text(
-                          'Buy now',
-                          style: AppTextStyle.h3TitleWhite,
-                        ),
-                      ),
+              currentProduct.isDiscount
+                  ? ProductToBuy(
+                      currentProductCoast: currentProductDiscountPrice,
+                    )
+                  : ProductToBuy(
+                      currentProductCoast: currentProduct.productCoast,
                     ),
-                  ),
-                ],
-              ),
               const SizedBox(
                 height: 16.0,
               ),
@@ -223,7 +115,7 @@ class OneProductInsidePage extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
-              Text(
+              const Text(
                 'Product description',
                 style: AppTextStyle.h4Body,
               ),
@@ -238,7 +130,7 @@ class OneProductInsidePage extends StatelessWidget {
                 height: 16.0,
               ),
               Text(
-                'Matching kid and teddy bear pyjamas are designed in classic style and made from the premium quality 100% cotton fabrics to allow skin breathe all night long. Having matching pyjamas with their teddy bear, will create a distinctive bedtime ritual in which little ones get excited for bedtime.\n \nOur teddy bears are specially manufactured for Luna Mia by using the new and finest materials and fully conforms to CE and EN71 European Safety Standards. It is 45 cm tall,hand washable and safe for all ages with its embroidery eyes, nose and mouth details.\n \n* Matching Kid and Teddy Bear Pyjama Set consists of 1 kid pyjama set and 1 teddy bear with the matching pyjama.\n \n* Luna Mia Pyjama Sets are sent in a special gift box. *Free Worldwide Shipping',
+                currentProduct.productDescription,
                 style: AppTextStyle.h5SubTitleText,
               ),
             ],
@@ -249,51 +141,101 @@ class OneProductInsidePage extends StatelessWidget {
   }
 }
 
-class ProductPreviewPics extends StatelessWidget {
-  ProductPreviewPics({
+class ProductToBuy extends StatefulWidget {
+  ProductToBuy({
     Key? key,
+    required this.currentProductCoast,
   }) : super(key: key);
 
-  final List<String> _productPicPreviewPathList = [
-    'assets/images/product_one.png',
-    'assets/images/rectangle_6.png',
-    'assets/images/rectangle_7.png',
-    'assets/images/rectangle_8.png',
-  ];
+  final double currentProductCoast;
+
   @override
-  Widget build(BuildContext context) {
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(4, (index) {
-          return ProductPreviewOnePic(
-            assetPicPath: _productPicPreviewPathList[index],
-          );
-        }));
-  }
+  State<ProductToBuy> createState() => _ProductToBuyState();
 }
 
-class ProductPreviewOnePic extends StatelessWidget {
-  const ProductPreviewOnePic({
-    Key? key,
-    required this.assetPicPath,
-  }) : super(key: key);
+class _ProductToBuyState extends State<ProductToBuy> {
+  int currentProductPCS = 1;
+  late double totalCoast = widget.currentProductCoast * currentProductPCS;
 
-  final String assetPicPath;
+  void increment() {
+    setState(() {
+      currentProductPCS += 1;
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      if (currentProductPCS > 1) currentProductPCS -= 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
-    return InkWell(
-      onTap: (() {}),
-      customBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Container(
-        height: (mediaQuery.size.width / 4) - 16,
-        width: (mediaQuery.size.width / 4) - 16,
-        child: Image.asset(assetPicPath),
-      ),
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Total coast:',
+              style: AppTextStyle.h4Body,
+            ),
+            Text(
+              '\$ ${(totalCoast * currentProductPCS).toStringAsFixed(2)}',
+              style: AppTextStyle.h4BodyBlue,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 16.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                SquareOutlineButton(
+                  onTapVoid: () => decrement(),
+                  title: '-',
+                ),
+                Container(
+                  width: 44.0,
+                  height: 44.0,
+                  child: Center(
+                    child: Text(
+                      currentProductPCS.toString(),
+                      style: AppTextStyle.h3Title,
+                    ),
+                  ),
+                ),
+                SquareOutlineButton(
+                  onTapVoid: () => increment(),
+                  title: '+',
+                ),
+                const SizedBox(
+                  width: 8.0,
+                ),
+              ],
+            ),
+            Expanded(
+              child: SizedBox(
+                height: 44.0,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.cBlueColor,
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    'Buy now',
+                    style: AppTextStyle.h3TitleWhite,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

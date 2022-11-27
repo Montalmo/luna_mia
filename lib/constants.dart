@@ -44,6 +44,11 @@ abstract class AppTextStyle {
       fontSize: 16.0,
       fontWeight: FontWeight.w500,
       color: AppColors.cBlackColor);
+  static const TextStyle h4BodyWhite = TextStyle(
+      fontFamily: AppStrings.appFontFamily,
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500,
+      color: AppColors.cWhiteColor);
   static const TextStyle h4BodyBlue = TextStyle(
       fontFamily: AppStrings.appFontFamily,
       fontSize: 16.0,
@@ -71,6 +76,10 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w400,
     color: AppColors.cDarkGrayColor,
   );
+  static const TextStyle h5LightTitleText = TextStyle(
+    fontFamily: AppStrings.appFontFamily,
+    fontSize: 14.0,
+    fontWeight: FontWeight.w200,
+    color: AppColors.cDarkGrayColor,
+  );
 }
-
-

@@ -6,10 +6,12 @@ class ProductPic extends StatelessWidget {
     Key? key,
     required this.productPic,
     required this.isDiscount,
+    required this.onTapVoid,
   }) : super(key: key);
 
   final String productPic;
   final bool isDiscount;
+  final VoidCallback onTapVoid;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class ProductPic extends StatelessWidget {
         color: AppColors.cLighGrayColor,
         borderRadius: BorderRadius.circular(8.0),
         child: InkWell(
-          onTap: (() {}),
+          onTap: () => onTapVoid,
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
@@ -50,10 +52,7 @@ class ProductPic extends StatelessWidget {
                   topLeft: Radius.circular(4.0),
                   bottomLeft: Radius.circular(4.0)),
             ),
-            child: Text(
-              'Discont',
-              style: AppTextStyle.h5SubTitleText,
-            ),
+            child: Text('Discont', style: AppTextStyle.h4BodyWhite),
           ),
         ),
     ]);
