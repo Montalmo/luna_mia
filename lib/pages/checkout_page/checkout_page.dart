@@ -1,21 +1,37 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:luna_mia/constants.dart';
+import 'package:luna_mia/pages/main_page/main_page.dart';
 import 'package:luna_mia/strings.dart';
 
-class CheckOutPage extends StatefulWidget {
-  const CheckOutPage({super.key});
+class CheckOutPage extends StatelessWidget {
+  const CheckOutPage({
+    super.key,
+    required this.currentProductTitle,
+    required this.currentProducTotalCoast,
+    required this.currentProductPicPath,
+    required this.currentProductPCS,
+  });
 
-  @override
-  State<CheckOutPage> createState() => _CheckOutPageState();
-}
+  final String currentProductTitle;
+  final double currentProducTotalCoast;
+  final String currentProductPicPath;
+  final int currentProductPCS;
 
-class _CheckOutPageState extends State<CheckOutPage> {
   @override
   Widget build(BuildContext context) {
+    void clickRouteHome() {
+      Navigator.push<void>(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => const MainPage(),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: AppColors.cBlackColor),
         title: const Text(
           'Checkout',
           style: AppTextStyle.h2Title,
@@ -26,7 +42,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => clickRouteHome(),
             icon: SvgPicture.asset(AppStrings.iconHome),
           ),
         ],
@@ -37,7 +53,12 @@ class _CheckOutPageState extends State<CheckOutPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CheckoutProductView(),
+              CheckoutProductView(
+                  currentProducTotalCoast:
+                      currentProducTotalCoast.toStringAsFixed(2),
+                  currentProductPicPath: currentProductPicPath,
+                  currentProductTitle: currentProductTitle,
+                  currentProductPCS: currentProductPCS),
               const SizedBox(
                 height: 24.0,
               ),
@@ -136,7 +157,16 @@ class AppTextField extends StatelessWidget {
 class CheckoutProductView extends StatelessWidget {
   const CheckoutProductView({
     Key? key,
+    required this.currentProducTotalCoast,
+    required this.currentProductPicPath,
+    required this.currentProductTitle,
+    required this.currentProductPCS,
   }) : super(key: key);
+
+  final String currentProductTitle;
+  final String currentProducTotalCoast;
+  final String currentProductPicPath;
+  final int currentProductPCS;
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +175,7 @@ class CheckoutProductView extends StatelessWidget {
         SizedBox(
           width: 71.0,
           height: 71.0,
-          child: Image.asset(productPicPathList01.first),
+          child: Image.asset(currentProductPicPath),
         ),
         const SizedBox(
           width: 16.0,
@@ -154,7 +184,7 @@ class CheckoutProductView extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                appProductList.first.productTitle,
+                currentProductTitle,
                 style: AppTextStyle.h4Body,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -164,15 +194,15 @@ class CheckoutProductView extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Text(
-                    '2 pcs',
+                  Text(
+                    currentProductPCS.toString(),
                     style: AppTextStyle.h5SubTitleText,
                   ),
                   const SizedBox(
                     width: 16.0,
                   ),
                   Text(
-                    '\$ ${appProductList.first.productCoast.toStringAsFixed(2)}',
+                    '\$ ${currentProducTotalCoast}',
                     style: AppTextStyle.h4BodyBlue,
                   )
                 ],

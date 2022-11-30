@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:luna_mia/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:luna_mia/pages/checkout_page/checkout_page.dart';
+import 'package:luna_mia/pages/main_page/main_page.dart';
 import 'package:luna_mia/strings.dart';
 import 'package:luna_mia/utilits/age_button.dart';
 import 'package:luna_mia/utilits/product_images.dart';
@@ -17,9 +19,18 @@ class OneProductInsidePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void clickRouteHome() {
+      Navigator.push<void>(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => const MainPage(),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: AppColors.cBlackColor),
+        iconTheme: const IconThemeData(color: AppColors.cBlackColor),
         title: Text(
           currentProduct.productTitle,
           style: AppTextStyle.h2Title,
@@ -30,7 +41,7 @@ class OneProductInsidePage extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => clickRouteHome(),
             icon: SvgPicture.asset(AppStrings.iconHome),
           ),
         ],
@@ -80,7 +91,7 @@ class OneProductInsidePage extends StatelessWidget {
               const SizedBox(
                 height: 24.0,
               ),
-              Text(
+              const Text(
                 'Size:',
                 style: AppTextStyle.h3Title,
               ),
@@ -102,9 +113,13 @@ class OneProductInsidePage extends StatelessWidget {
               currentProduct.isDiscount
                   ? ProductToBuy(
                       currentProductCoast: currentProductDiscountPrice,
+                      currentProduct: currentProduct,
+                      voidCallback: () => clickRouteHome(),
                     )
                   : ProductToBuy(
                       currentProductCoast: currentProduct.productCoast,
+                      currentProduct: currentProduct,
+                      voidCallback: () => clickRouteHome(),
                     ),
               const SizedBox(
                 height: 16.0,
@@ -122,7 +137,7 @@ class OneProductInsidePage extends StatelessWidget {
               const SizedBox(
                 height: 24.0,
               ),
-              Text(
+              const Text(
                 'Matching Kid And Teddy Bear Set',
                 style: AppTextStyle.h4Body,
               ),
@@ -145,32 +160,65 @@ class ProductToBuy extends StatefulWidget {
   ProductToBuy({
     Key? key,
     required this.currentProductCoast,
+    required this.voidCallback,
+    required this.currentProduct,
   }) : super(key: key);
 
   final double currentProductCoast;
+  final Product currentProduct;
+  VoidCallback voidCallback;
 
   @override
   State<ProductToBuy> createState() => _ProductToBuyState();
 }
 
 class _ProductToBuyState extends State<ProductToBuy> {
-  int currentProductPCS = 1;
-  late double totalCoast = widget.currentProductCoast * currentProductPCS;
+  late int currentProductPCS;
+  late double totalCoast;
+  late String pathPic;
+  late String titlePr;
+
+  @override
+  void initState() {
+    currentProductPCS = 1;
+    totalCoast = widget.currentProductCoast;
+    pathPic = widget.currentProduct.productPicPath[0];
+    titlePr = widget.currentProduct.productTitle;
+
+    super.initState();
+  }
 
   void increment() {
     setState(() {
       currentProductPCS += 1;
+      totalCoast += widget.currentProductCoast;
     });
   }
 
   void decrement() {
     setState(() {
-      if (currentProductPCS > 1) currentProductPCS -= 1;
+      if (currentProductPCS > 1) {
+        currentProductPCS -= 1;
+        totalCoast -= widget.currentProductCoast;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    void routeCheckout() {
+      Navigator.push<void>(
+        context,
+        MaterialPageRoute<void>(
+            builder: (BuildContext context) => CheckOutPage(
+                  currentProductTitle: titlePr,
+                  currentProducTotalCoast: totalCoast,
+                  currentProductPicPath: pathPic,
+                  currentProductPCS: currentProductPCS,
+                )),
+      );
+    }
+
     return Column(
       children: [
         Row(
@@ -181,7 +229,7 @@ class _ProductToBuyState extends State<ProductToBuy> {
               style: AppTextStyle.h4Body,
             ),
             Text(
-              '\$ ${(totalCoast * currentProductPCS).toStringAsFixed(2)}',
+              '\$ ${totalCoast.toStringAsFixed(2)}',
               style: AppTextStyle.h4BodyBlue,
             ),
           ],
@@ -198,7 +246,7 @@ class _ProductToBuyState extends State<ProductToBuy> {
                   onTapVoid: () => decrement(),
                   title: '-',
                 ),
-                Container(
+                SizedBox(
                   width: 44.0,
                   height: 44.0,
                   child: Center(
@@ -221,7 +269,7 @@ class _ProductToBuyState extends State<ProductToBuy> {
               child: SizedBox(
                 height: 44.0,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => routeCheckout(),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.cBlueColor,
                     elevation: 0,

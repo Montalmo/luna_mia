@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:luna_mia/pages/main_page/main_page.dart';
 import 'package:luna_mia/pages/products_page/products_page.dart';
 import 'package:luna_mia/strings.dart';
-import 'package:luna_mia/utilits/product_card.dart';
+
 
 class OneProductPage extends StatelessWidget {
   const OneProductPage(
@@ -26,7 +26,7 @@ class OneProductPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: AppColors.cBlackColor),
+        iconTheme: const IconThemeData(color: AppColors.cBlackColor),
         title: Text(
           title,
           style: AppTextStyle.h2Title,
@@ -108,13 +108,13 @@ class AppProductCard extends StatelessWidget {
                         alignment: Alignment.center,
                         width: 104,
                         height: 32.0,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.cRedColor,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               bottomLeft: Radius.circular(4.0)),
                         ),
-                        child: Text('Discont', style: AppTextStyle.h4BodyWhite),
+                        child: const Text('Discont', style: AppTextStyle.h4BodyWhite),
                       ),
                     ),
                 ],

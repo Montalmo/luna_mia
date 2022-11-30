@@ -34,7 +34,7 @@ class MainPage extends StatelessWidget {
                     cardColor: AppColors.cYelowColor,
                     imagePath: 'assets/images/category_one_pic.png',
                     title: productsCategories[0]),
-                SizedBox(
+                const SizedBox(
                   height: 40.0,
                 ),
                 CategoryCard(

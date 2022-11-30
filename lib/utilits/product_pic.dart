@@ -28,7 +28,7 @@ class ProductPic extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
+              SizedBox(
                 height: 330,
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
@@ -46,13 +46,13 @@ class ProductPic extends StatelessWidget {
             alignment: Alignment.center,
             width: 104,
             height: 32.0,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.cRedColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(4.0),
                   bottomLeft: Radius.circular(4.0)),
             ),
-            child: Text('Discont', style: AppTextStyle.h4BodyWhite),
+            child: const Text('Discont', style: AppTextStyle.h4BodyWhite),
           ),
         ),
     ]);

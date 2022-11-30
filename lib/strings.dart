@@ -7,12 +7,10 @@ class CurrentProductInOrder {
   const CurrentProductInOrder({
     required this.addedProduct,
     required this.addedProductPCS,
-    required this.addedProductSizes,
   });
 
   final Product addedProduct;
   final int addedProductPCS;
-  final List<String> addedProductSizes;
 }
 
 class Product {
@@ -37,10 +35,7 @@ class Product {
   final bool isDiscount;
 }
 
-List<String> productsCategories = [
-  'Girl pajama sets',
-  'Boy pajama sets'
-];
+List<String> productsCategories = ['Girl pajama sets', 'Boy pajama sets'];
 
 List<String> productsSezesList = [
   '1-2 Age',

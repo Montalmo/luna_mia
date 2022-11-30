@@ -25,7 +25,7 @@ class _ProductImagesState extends State<ProductImages> {
           children: [
             Container(
               height: 330,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.cLighGrayColor,
                 borderRadius: BorderRadius.all(
                   Radius.circular(4.0),
@@ -44,13 +44,13 @@ class _ProductImagesState extends State<ProductImages> {
                   alignment: Alignment.center,
                   width: 104,
                   height: 32.0,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: AppColors.cRedColor,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(4.0),
                         bottomLeft: Radius.circular(4.0)),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Discont',
                     style: AppTextStyle.hFlagText,
                   ),
@@ -75,7 +75,7 @@ class _ProductImagesState extends State<ProductImages> {
   }
 
   InkWell buildSmallProductPrewiew(context, int index) {
-    bool isNotActive = true;
+    
     final MediaQueryData mediaQuery = MediaQuery.of(context);
 
     return InkWell(

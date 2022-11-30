@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:luna_mia/constants.dart';
 
 class AgeButton extends StatelessWidget {
-  AgeButton({
+  const AgeButton({
     Key? key,
     required this.ageCategoriesList
   }) : super(key: key);
 
   
 
-  List<String> ageCategoriesList;
+  final List<String> ageCategoriesList;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:luna_mia/constants.dart';
-import 'package:luna_mia/pages/main_page/main_page.dart';
 import 'package:luna_mia/utilits/product_pic.dart';
 
 class ProductCard extends StatelessWidget {
@@ -18,20 +17,12 @@ class ProductCard extends StatelessWidget {
   final double productPrice;
   late final String oldPrice =
       (productPrice + (productPrice * 15 / 100)).toStringAsFixed(2);
-  bool isDiscount;
+  final bool isDiscount;
   final VoidCallback onTapVoid;
 
   @override
   Widget build(BuildContext context) {
-    void clickRouteHome() {
-      Navigator.push<void>(
-        context,
-        MaterialPageRoute<void>(
-          builder: (BuildContext context) => const MainPage(),
-        ),
-      );
-    }
-
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
